@@ -13,16 +13,16 @@ export default function Home() {
         padding: "24px"
       }}
     >
-      <img
-        src="/reborn-logo.png"
-        alt="REBORN logo"
-        style={{
-          width: "280px",
-          maxWidth: "85vw",
-          height: "auto",
-          marginBottom: "20px"
-        }}
-      />
+<img
+  src="/reborn-logo.png"
+  alt="REBORN logo"
+  style={{
+    width: "220px",
+    maxWidth: "80vw",
+    height: "auto",
+    marginBottom: "25px"
+  }}
+/>
 
       <h1
         style={{
