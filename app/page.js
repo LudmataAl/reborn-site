@@ -21,6 +21,7 @@ export default function Home() {
         .logo {
           width: 300px;
           max-width: 85vw;
+          height: auto;
           margin-bottom: 20px;
           filter: drop-shadow(0 0 20px rgba(181,140,74,0.25));
         }
@@ -66,8 +67,7 @@ export default function Home() {
       `}</style>
 
       <div className="container">
-
-        <img src="/reborn-logo.png" className="logo" />
+        <img src="/reborn-logo.png" alt="REBORN logo" className="logo" />
 
         <h1 className="title">REBORN</h1>
         <div className="subtitle">Rebuild the System</div>
@@ -76,11 +76,3 @@ export default function Home() {
           <h2>Mining System</h2>
           <p>Halving every 90 days</p>
           <p>Participation-based rewards</p>
-        </div>
-
-        <button className="btn">Join Early Access</button>
-
-      </div>
-    </>
-  );
-}
