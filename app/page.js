@@ -10,26 +10,26 @@ export default function Home() {
         alignItems: "center",
         justifyContent: "flex-start",
         textAlign: "center",
-        padding: "12px",
-        paddingTop: "70px",
+        padding: "16px",
+        paddingTop: "40px",
       }}
     >
       <img
         src="/reborn-logo.png"
         alt="REBORN logo"
         style={{
-          width: "150px",
-          maxWidth: "70vw",
+          width: "220px",
+          maxWidth: "78vw",
           height: "auto",
-          marginBottom: "14px",
-          filter: "drop-shadow(0 0 28px rgba(212,175,55,0.35))",
+          marginBottom: "18px",
+          filter: "drop-shadow(0 0 30px rgba(212,175,55,0.35))",
         }}
       />
 
       <div
         style={{
           color: "#D4AF37",
-          fontSize: "40px",
+          fontSize: "52px",
           letterSpacing: "4px",
           fontWeight: "bold",
           margin: 0,
@@ -41,11 +41,11 @@ export default function Home() {
 
       <div
         style={{
-          marginTop: "8px",
-          fontSize: "15px",
+          marginTop: "10px",
+          fontSize: "17px",
           color: "#aaa",
           letterSpacing: "1px",
-          marginBottom: "42px",
+          marginBottom: "34px",
         }}
       >
         Rebuild the System
@@ -55,11 +55,11 @@ export default function Home() {
         style={{
           background: "#0a0a0a",
           border: "1px solid rgba(181,140,74,0.3)",
-          borderRadius: "20px",
-          padding: "25px",
+          borderRadius: "22px",
+          padding: "28px 24px",
           width: "100%",
-          maxWidth: "320px",
-          marginBottom: "30px",
+          maxWidth: "340px",
+          marginBottom: "26px",
         }}
       >
         <h2
@@ -67,7 +67,7 @@ export default function Home() {
             color: "#b58c4a",
             marginTop: 0,
             marginBottom: "18px",
-            fontSize: "28px",
+            fontSize: "30px",
           }}
         >
           Mining System
@@ -77,7 +77,7 @@ export default function Home() {
           style={{
             color: "#ccc",
             margin: "0 0 14px 0",
-            fontSize: "16px",
+            fontSize: "17px",
             lineHeight: 1.45,
           }}
         >
@@ -88,13 +88,29 @@ export default function Home() {
           style={{
             color: "#ccc",
             margin: 0,
-            fontSize: "16px",
+            fontSize: "17px",
             lineHeight: 1.45,
           }}
         >
           Participation-based rewards
         </p>
       </div>
+
+      <button
+        style={{
+          padding: "16px 34px",
+          borderRadius: "14px",
+          border: "none",
+          background: "linear-gradient(180deg, #c8a15d, #9a7436)",
+          color: "#111",
+          fontWeight: "bold",
+          fontSize: "18px",
+          boxShadow: "0 0 20px rgba(181,140,74,0.2)",
+          cursor: "pointer",
+        }}
+      >
+        Join Early Access
+      </button>
     </div>
   );
 }
