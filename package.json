@@ -1,15 +1,102 @@
-{
-  "name": "reborn-site",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "14.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  }
+export default function Home() {
+  return (
+    <>
+      <style>{`
+        body {
+          margin: 0;
+          background: radial-gradient(circle at top, #111 0%, #000 70%);
+          font-family: Arial, sans-serif;
+        }
+
+        .container {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 24px 18px 40px;
+        }
+
+        .logo {
+          width: 320px;
+          max-width: 88vw;
+          height: auto;
+          display: block;
+          margin-bottom: 18px;
+        }
+
+        .title {
+          color: #b58c4a;
+          font-size: 54px;
+          font-weight: 700;
+          letter-spacing: 8px;
+          margin: 0;
+          text-shadow: 0 0 18px rgba(181,140,74,0.18);
+        }
+
+        .subtitle {
+          color: rgba(214,197,166,0.85);
+          font-size: 18px;
+          margin-top: 12px;
+          margin-bottom: 42px;
+          letter-spacing: 2px;
+        }
+
+        .card {
+          background: linear-gradient(180deg, #0c0c0c, #070707);
+          border: 1px solid rgba(181,140,74,0.28);
+          border-radius: 24px;
+          padding: 28px 22px;
+          width: 100%;
+          max-width: 360px;
+          margin-bottom: 28px;
+          box-shadow: 0 0 24px rgba(0,0,0,0.35);
+        }
+
+        .card h2 {
+          color: #b58c4a;
+          margin: 0 0 14px;
+          font-size: 34px;
+        }
+
+        .card p {
+          color: #d9d9d9;
+          margin: 10px 0;
+          font-size: 18px;
+          line-height: 1.45;
+        }
+
+        .btn {
+          padding: 16px 34px;
+          border-radius: 14px;
+          border: none;
+          background: linear-gradient(180deg, #c8a15d, #9a7436);
+          color: #111;
+          font-weight: 700;
+          font-size: 18px;
+          box-shadow: 0 0 20px rgba(181,140,74,0.2);
+        }
+      `}</style>
+
+      <div className="container">
+        <img
+          src="/a_dark_luxury_graphic_logo_on_a_black_textured_bac.png"
+          alt="REBORN logo"
+          className="logo"
+        />
+
+        <h1 className="title">REBORN</h1>
+        <div className="subtitle">REBUILD THE SYSTEM</div>
+
+        <div className="card">
+          <h2>Mining System</h2>
+          <p>Halving every 90 days</p>
+          <p>Participation-based rewards</p>
+        </div>
+
+        <button className="btn">Join Early Access</button>
+      </div>
+    </>
+  );
 }
