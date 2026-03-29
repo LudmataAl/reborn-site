@@ -15,17 +15,17 @@ export default function Home() {
       }}
     >
       <img
-        src="/reborn-logo.png"
-        alt="REBORN logo"
-        style={{
-          width: "220px",
-          maxWidth: "78vw",
-          height: "auto",
-          marginBottom: "18px",
-          filter: "drop-shadow(0 0 30px rgba(212,175,55,0.35))",
-        }}
-      />
-
+  src="/reborn-logo.png"
+  alt="REBORN logo"
+  style={{
+    width: "380px",
+    maxWidth: "90vw",
+    height: "auto",
+    marginBottom: "18px",
+    filter: "drop-shadow(0 0 30px rgba(212,175,55,0.35))",
+  }}
+/>
+  
       <div
         style={{
           color: "#D4AF37",
