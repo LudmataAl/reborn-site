@@ -10,91 +10,106 @@ export default function Home() {
         alignItems: "center",
         justifyContent: "flex-start",
         textAlign: "center",
-        padding: "16px",
-        paddingTop: "20px", // ⬅️ махнахме голямото разстояние
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        paddingTop: "24px",
+        paddingBottom: "24px",
       }}
     >
-      {/* LOGO */}
       <img
         src="/reborn-logo.png"
         alt="REBORN logo"
         style={{
-          width: "320px", // ⬅️ РЕАЛНО увеличение
+          width: "230px",
           height: "auto",
-          marginBottom: "10px",
-          marginTop: "0px",
-          filter: "drop-shadow(0 0 40px rgba(212,175,55,0.45))",
+          marginTop: "0",
+          marginBottom: "12px",
+          filter: "drop-shadow(0 0 34px rgba(212,175,55,0.38))",
         }}
       />
 
-      {/* TITLE */}
       <div
         style={{
           color: "#D4AF37",
-          fontSize: "48px",
-          letterSpacing: "4px",
+          fontSize: "46px",
+          letterSpacing: "3px",
           fontWeight: "bold",
-          margin: 0,
-          lineHeight: 1,
+          lineHeight: "1",
+          margin: "0",
         }}
       >
         REBORN
       </div>
 
-      {/* SUBTITLE */}
       <div
         style={{
-          marginTop: "6px",
-          fontSize: "16px",
+          marginTop: "8px",
+          marginBottom: "28px",
+          fontSize: "15px",
           color: "#aaa",
-          marginBottom: "24px",
+          letterSpacing: "1px",
+          lineHeight: "1.2",
         }}
       >
         Rebuild the System
       </div>
 
-      {/* CARD */}
       <div
         style={{
           background: "#0a0a0a",
           border: "1px solid rgba(181,140,74,0.3)",
-          borderRadius: "20px",
-          padding: "26px 20px",
+          borderRadius: "22px",
+          padding: "26px 22px",
           width: "100%",
           maxWidth: "340px",
-          marginBottom: "20px",
+          marginBottom: "22px",
         }}
       >
         <h2
           style={{
             color: "#b58c4a",
+            marginTop: "0",
             marginBottom: "16px",
-            fontSize: "28px",
+            fontSize: "30px",
           }}
         >
           Mining System
         </h2>
 
-        <p style={{ color: "#ccc", marginBottom: "10px" }}>
+        <p
+          style={{
+            color: "#ccc",
+            margin: "0 0 12px 0",
+            fontSize: "17px",
+            lineHeight: "1.45",
+          }}
+        >
           Halving every 90 days
         </p>
 
-        <p style={{ color: "#ccc" }}>
+        <p
+          style={{
+            color: "#ccc",
+            margin: "0",
+            fontSize: "17px",
+            lineHeight: "1.45",
+          }}
+        >
           Participation-based rewards
         </p>
       </div>
 
-      {/* BUTTON */}
       <button
         style={{
-          padding: "16px 32px",
+          padding: "16px 34px",
           borderRadius: "14px",
           border: "none",
           background: "linear-gradient(180deg, #c8a15d, #9a7436)",
           color: "#111",
           fontWeight: "bold",
           fontSize: "18px",
-          boxShadow: "0 0 25px rgba(181,140,74,0.25)",
+          boxShadow: "0 0 24px rgba(181,140,74,0.22)",
+          cursor: "pointer",
         }}
       >
         Join Early Access
