@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState('');
   const [walletStatus, setWalletStatus] = useState('Not connected');
   const [isConnecting, setIsConnecting] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState('');
+  const [selectedPackage, setSelectedPackage] = useState('Starter Access');
 
   async function connectWallet() {
     if (typeof window === 'undefined' || !window.ethereum) {
@@ -35,19 +35,128 @@ export default function Home() {
     }
   }
 
-  function activateAccess(packageName) {
-    setSelectedPackage(packageName);
-  }
-
   const shortAddress = walletAddress
     ? walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4)
     : '';
+
+  const packages = [
+    {
+      name: 'Starter Access',
+      price: '$50',
+      tier: 'Tier I',
+      tokenAllocation: 100,
+      miningPower: 1,
+      description:
+        'Entry-level pre-launch access for early community participation.',
+      details: [
+        'Wallet-based early access',
+        'Pre-launch active status',
+        'Reward eligibility after June 25, 2026',
+      ],
+    },
+    {
+      name: 'Pro Access',
+      price: '$200',
+      tier: 'Tier II',
+      tokenAllocation: 400,
+      miningPower: 4,
+      description:
+        'Higher participation tier with stronger ecosystem positioning before launch.',
+      details: [
+        'Priority ecosystem tier',
+        'Enhanced participation status',
+        'Reward eligibility after June 25, 2026',
+      ],
+    },
+    {
+      name: 'Elite Access',
+      price: '$500',
+      tier: 'Tier III',
+      tokenAllocation: 1000,
+      miningPower: 10,
+      description:
+        'Premium pre-launch tier for maximum early positioning in the REBORN ecosystem.',
+      details: [
+        'Highest pre-launch tier',
+        'Premium access status',
+        'Reward eligibility after June 25, 2026',
+      ],
+    },
+  ];
+
+  const halvingRows = [
+    ['Phase 1', '25 Jun 2026 – 22 Sep 2026', 80000, '23 September 2026'],
+    ['Phase 2', '23 Sep 2026 – 21 Dec 2026', 40000, '22 December 2026'],
+    ['Phase 3', '22 Dec 2026 – 21 Mar 2027', 20000, '22 March 2027'],
+    ['Phase 4', '22 Mar 2027 – 19 Jun 2027', 10000, '20 June 2027'],
+    ['Phase 5', '20 Jun 2027 – 17 Sep 2027', 5000, '18 September 2027'],
+    ['Phase 6', '18 Sep 2027 – 16 Dec 2027', 2500, '17 December 2027'],
+    ['Phase 7', '17 Dec 2027 – 16 Mar 2028', 1250, '17 March 2028'],
+    ['Phase 8', '17 Mar 2028 – 14 Jun 2028', 625, '15 June 2028'],
+  ];
+
+  const difficultyBands = [
+    { label: '0 – 999 Total Power', min: 0, max: 999, value: 1.0 },
+    { label: '1,000 – 2,499 Total Power', min: 1000, max: 2499, value: 0.92 },
+    { label: '2,500 – 4,999 Total Power', min: 2500, max: 4999, value: 0.84 },
+    { label: '5,000 – 9,999 Total Power', min: 5000, max: 9999, value: 0.76 },
+    { label: '10,000+ Total Power', min: 10000, max: Infinity, value: 0.68 },
+  ];
+
+  const emissionBars = useMemo(() => {
+    const maxEmission = 80000;
+    return halvingRows.map((row) => ({
+      phase: row[0],
+      emission: row[2],
+      width: (row[2] / maxEmission) * 100,
+    }));
+  }, []);
+
+  const difficultyBars = [
+    { label: '500', value: 1.0 },
+    { label: '1,500', value: 0.92 },
+    { label: '3,500', value: 0.84 },
+    { label: '7,000', value: 0.76 },
+    { label: '12,000', value: 0.68 },
+  ];
+
+  const currentDailyEmission = 80000;
+  const assumedTotalActivePower = 3500;
+
+  const selectedPackageData =
+    packages.find((pkg) => pkg.name === selectedPackage) || packages[0];
+
+  const currentDifficulty =
+    difficultyBands.find(
+      (band) =>
+        assumedTotalActivePower >= band.min &&
+        assumedTotalActivePower <= band.max
+    )?.value || 1;
+
+  const estimatedDailyReward =
+    (selectedPackageData.miningPower / assumedTotalActivePower) *
+    currentDailyEmission *
+    currentDifficulty;
+
+  const estimatedMonthlyReward = estimatedDailyReward * 30;
 
   const cardStyle = {
     width: '100%',
     maxWidth: '360px',
     margin: '0 auto 18px auto',
     padding: '26px 20px',
+    borderRadius: '24px',
+    border: '1px solid rgba(212,175,55,0.22)',
+    background:
+      'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
+    boxShadow: '0 0 30px rgba(0,0,0,0.35)',
+  };
+
+  const wideCardStyle = {
+    width: '100%',
+    maxWidth: '900px',
+    margin: '0 auto 18px auto',
+    padding: '28px 20px',
     borderRadius: '24px',
     border: '1px solid rgba(212,175,55,0.22)',
     background:
@@ -67,56 +176,6 @@ export default function Home() {
     fontSize: '16px',
     lineHeight: '1.6',
   };
-
-  const packages = [
-    {
-      name: 'Starter Access',
-      price: '$50',
-      tier: 'Tier I',
-      description:
-        'Entry-level pre-launch access for early community participation.',
-      details: [
-        'Wallet-based early access',
-        'Pre-launch active status',
-        'Reward eligibility after June 25, 2026',
-      ],
-    },
-    {
-      name: 'Pro Access',
-      price: '$200',
-      tier: 'Tier II',
-      description:
-        'Higher participation tier with stronger ecosystem positioning before launch.',
-      details: [
-        'Priority ecosystem tier',
-        'Enhanced participation status',
-        'Reward eligibility after June 25, 2026',
-      ],
-    },
-    {
-      name: 'Elite Access',
-      price: '$500',
-      tier: 'Tier III',
-      description:
-        'Premium pre-launch tier for maximum early positioning in the REBORN ecosystem.',
-      details: [
-        'Highest pre-launch tier',
-        'Premium access status',
-        'Reward eligibility after June 25, 2026',
-      ],
-    },
-  ];
-
-  const halvingRows = [
-    ['Phase 1', '25 Jun 2026 – 22 Sep 2026', '80,000 RBN / day', '23 September 2026'],
-    ['Phase 2', '23 Sep 2026 – 21 Dec 2026', '40,000 RBN / day', '22 December 2026'],
-    ['Phase 3', '22 Dec 2026 – 21 Mar 2027', '20,000 RBN / day', '22 March 2027'],
-    ['Phase 4', '22 Mar 2027 – 19 Jun 2027', '10,000 RBN / day', '20 June 2027'],
-    ['Phase 5', '20 Jun 2027 – 17 Sep 2027', '5,000 RBN / day', '18 September 2027'],
-    ['Phase 6', '18 Sep 2027 – 16 Dec 2027', '2,500 RBN / day', '17 December 2027'],
-    ['Phase 7', '17 Dec 2027 – 16 Mar 2028', '1,250 RBN / day', '17 March 2028'],
-    ['Phase 8', '17 Mar 2028 – 14 Jun 2028', '625 RBN / day', '15 June 2028'],
-  ];
 
   return (
     <div
@@ -174,40 +233,39 @@ export default function Home() {
       <div style={cardStyle}>
         <div style={sectionTitle}>Mining Model</div>
         <div style={{ ...bodyText, textAlign: 'left' }}>
-          REBORN follows a controlled emission structure with fixed 90-day
-          cycles. Daily emissions decrease by 50% at every halving, starting
-          from the official launch on June 25, 2026.
+          REBORN uses a transparent participation-based reward model.
+          Every package carries predefined mining power. Estimated daily rewards
+          depend on four variables: user mining power, total active mining power,
+          current daily emission, and current difficulty index.
+          <br />
+          <br />
+          <span style={{ color: '#D4AF37', fontWeight: 'bold' }}>
+            Estimated Daily Reward =
+          </span>{' '}
+          (User Mining Power / Total Active Mining Power) × Daily Emission ×
+          Difficulty Index
         </div>
       </div>
 
       <div style={cardStyle}>
-        <div style={sectionTitle}>Emission Plan</div>
-        <div style={{ ...bodyText, textAlign: 'left' }}>
-          <div style={{ marginBottom: '8px' }}>• Phase 1 — 80,000 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 2 — 40,000 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 3 — 20,000 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 4 — 10,000 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 5 — 5,000 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 6 — 2,500 RBN / day</div>
-          <div style={{ marginBottom: '8px' }}>• Phase 7 — 1,250 RBN / day</div>
-          <div>• Phase 8 — 625 RBN / day</div>
+        <div style={sectionTitle}>Difficulty Model</div>
+        <div style={{ ...bodyText, textAlign: 'left', marginBottom: '14px' }}>
+          Mining difficulty adjusts dynamically based on total active ecosystem
+          participation. As more packages become active, the difficulty index
+          may reduce estimated individual rewards while the published emission
+          model remains fixed.
+        </div>
+
+        <div style={{ ...bodyText, textAlign: 'left', fontSize: '14px' }}>
+          {difficultyBands.map((band) => (
+            <div key={band.label} style={{ marginBottom: '8px' }}>
+              • {band.label} → Difficulty {band.value.toFixed(2)}
+            </div>
+          ))}
         </div>
       </div>
 
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '900px',
-          margin: '0 auto 18px auto',
-          padding: '28px 20px',
-          borderRadius: '24px',
-          border: '1px solid rgba(212,175,55,0.22)',
-          background:
-            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
-          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
-          overflowX: 'auto',
-        }}
-      >
+      <div style={wideCardStyle}>
         <div
           style={{
             color: '#D4AF37',
@@ -272,8 +330,112 @@ export default function Home() {
             >
               <div style={{ padding: '12px' }}>{row[0]}</div>
               <div style={{ padding: '12px' }}>{row[1]}</div>
-              <div style={{ padding: '12px', color: '#D4AF37' }}>{row[2]}</div>
+              <div style={{ padding: '12px', color: '#D4AF37' }}>
+                {row[2].toLocaleString()} RBN / day
+              </div>
               <div style={{ padding: '12px' }}>{row[3]}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={wideCardStyle}>
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '30px',
+            fontWeight: 'bold',
+            marginBottom: '18px',
+          }}
+        >
+          Emission Chart
+        </div>
+
+        <div style={{ display: 'grid', gap: '12px' }}>
+          {emissionBars.map((bar) => (
+            <div key={bar.phase} style={{ textAlign: 'left' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: '6px',
+                  color: '#d8d8d8',
+                  fontSize: '14px',
+                }}
+              >
+                <span>{bar.phase}</span>
+                <span>{bar.emission.toLocaleString()} RBN</span>
+              </div>
+              <div
+                style={{
+                  width: '100%',
+                  height: '12px',
+                  background: 'rgba(255,255,255,0.06)',
+                  borderRadius: '999px',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    width: `${bar.width}%`,
+                    height: '100%',
+                    background:
+                      'linear-gradient(90deg, #d4af37, #9a7436)',
+                    borderRadius: '999px',
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={wideCardStyle}>
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '30px',
+            fontWeight: 'bold',
+            marginBottom: '18px',
+          }}
+        >
+          Difficulty Chart
+        </div>
+
+        <div style={{ display: 'grid', gap: '12px' }}>
+          {difficultyBars.map((bar) => (
+            <div key={bar.label} style={{ textAlign: 'left' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  marginBottom: '6px',
+                  color: '#d8d8d8',
+                  fontSize: '14px',
+                }}
+              >
+                <span>{bar.label} Total Power</span>
+                <span>{bar.value.toFixed(2)}</span>
+              </div>
+              <div
+                style={{
+                  width: '100%',
+                  height: '12px',
+                  background: 'rgba(255,255,255,0.06)',
+                  borderRadius: '999px',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    width: `${bar.value * 100}%`,
+                    height: '100%',
+                    background:
+                      'linear-gradient(90deg, #d4af37, #9a7436)',
+                    borderRadius: '999px',
+                  }}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -334,19 +496,7 @@ export default function Home() {
         </button>
       </div>
 
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '900px',
-          margin: '0 auto 18px auto',
-          padding: '28px 20px',
-          borderRadius: '24px',
-          border: '1px solid rgba(212,175,55,0.22)',
-          background:
-            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
-          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
-        }}
-      >
+      <div style={wideCardStyle}>
         <div
           style={{
             color: '#D4AF37',
@@ -440,7 +590,7 @@ export default function Home() {
                   color: '#d9d9d9',
                   fontSize: '14px',
                   lineHeight: '1.7',
-                  marginBottom: '18px',
+                  marginBottom: '14px',
                 }}
               >
                 {pkg.details.map((item) => (
@@ -450,8 +600,30 @@ export default function Home() {
                 ))}
               </div>
 
+              <div
+                style={{
+                  color: '#d7d7d7',
+                  fontSize: '14px',
+                  lineHeight: '1.7',
+                  marginBottom: '18px',
+                  padding: '12px',
+                  borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(212,175,55,0.10)',
+                }}
+              >
+                <div style={{ marginBottom: '6px' }}>
+                  <strong style={{ color: '#D4AF37' }}>Token Allocation:</strong>{' '}
+                  {pkg.tokenAllocation.toLocaleString()} RBN
+                </div>
+                <div>
+                  <strong style={{ color: '#D4AF37' }}>Mining Power:</strong>{' '}
+                  {pkg.miningPower}x
+                </div>
+              </div>
+
               <button
-                onClick={() => activateAccess(pkg.name)}
+                onClick={() => setSelectedPackage(pkg.name)}
                 style={{
                   width: '100%',
                   padding: '14px',
@@ -492,6 +664,135 @@ export default function Home() {
           <br />
           <strong style={{ color: '#D4AF37' }}>Reward Eligibility:</strong>{' '}
           Begins after official launch under the published emission schedule.
+        </div>
+      </div>
+
+      <div style={wideCardStyle}>
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '30px',
+            fontWeight: 'bold',
+            marginBottom: '12px',
+          }}
+        >
+          Reward Calculator Preview
+        </div>
+
+        <div
+          style={{
+            color: '#bdbdbd',
+            fontSize: '14px',
+            lineHeight: '1.6',
+            marginBottom: '20px',
+            maxWidth: '720px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          This preview uses the currently selected package, Phase 1 emission,
+          and an assumed total active mining power of 3,500. Displayed values
+          are estimates only and do not represent guaranteed returns.
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '14px',
+          }}
+        >
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Selected Tier
+            </div>
+            <div style={{ color: '#fff' }}>{selectedPackageData.name}</div>
+          </div>
+
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Mining Power
+            </div>
+            <div style={{ color: '#fff' }}>{selectedPackageData.miningPower}x</div>
+          </div>
+
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Current Difficulty
+            </div>
+            <div style={{ color: '#fff' }}>{currentDifficulty.toFixed(2)}</div>
+          </div>
+
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Current Daily Emission
+            </div>
+            <div style={{ color: '#fff' }}>
+              {currentDailyEmission.toLocaleString()} RBN
+            </div>
+          </div>
+
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Estimated Daily Reward
+            </div>
+            <div style={{ color: '#fff' }}>{estimatedDailyReward.toFixed(2)} RBN</div>
+          </div>
+
+          <div
+            style={{
+              padding: '16px',
+              borderRadius: '16px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.10)',
+              textAlign: 'left',
+            }}
+          >
+            <div style={{ color: '#D4AF37', marginBottom: '6px', fontWeight: 'bold' }}>
+              Estimated Monthly Reward
+            </div>
+            <div style={{ color: '#fff' }}>{estimatedMonthlyReward.toFixed(2)} RBN</div>
+          </div>
         </div>
       </div>
 
@@ -542,4 +843,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
+      }
