@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState('');
@@ -8,13 +8,14 @@ export default function Home() {
   const [isConnecting, setIsConnecting] = useState(false);
 
   async function connectWallet() {
-    if (typeof window === 'undefined' || typeof window.ethereum === 'undefined') {
+    if (typeof window === 'undefined' || !window.ethereum) {
       setWalletStatus('MetaMask not found');
       return;
     }
 
     try {
       setIsConnecting(true);
+
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
@@ -23,8 +24,10 @@ export default function Home() {
         const address = accounts[0];
         setWalletAddress(address);
         setWalletStatus('Connected');
+      } else {
+        setWalletStatus('No wallet selected');
       }
-    } catch (error) {
+    } catch (e) {
       setWalletStatus('Connection failed');
     } finally {
       setIsConnecting(false);
@@ -32,33 +35,8 @@ export default function Home() {
   }
 
   const shortAddress = walletAddress
-    ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
+    ? walletAddress.slice(0, 6) + '...' + walletAddress.slice(-4)
     : '';
-
-  const cardStyle = {
-    width: '100%',
-    maxWidth: '360px',
-    margin: '0 auto 18px auto',
-    padding: '26px 20px',
-    borderRadius: '24px',
-    border: '1px solid rgba(212,175,55,0.22)',
-    background:
-      'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
-    boxShadow: '0 0 30px rgba(0,0,0,0.35)',
-  };
-
-  const titleStyle = {
-    color: '#D4AF37',
-    fontSize: '28px',
-    fontWeight: 'bold',
-    marginBottom: '16px',
-  };
-
-  const textStyle = {
-    color: '#d0d0d0',
-    fontSize: '16px',
-    lineHeight: 1.6,
-  };
 
   return (
     <div
@@ -94,8 +72,8 @@ export default function Home() {
           fontSize: '54px',
           fontWeight: 'bold',
           letterSpacing: '4px',
-          lineHeight: 1,
-          margin: 0,
+          lineHeight: '1',
+          margin: '0',
         }}
       >
         REBORN
@@ -113,18 +91,76 @@ export default function Home() {
         Rebuild the System
       </div>
 
-      <div style={cardStyle}>
-        <div style={titleStyle}>Mining Model</div>
-        <div style={textStyle}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '360px',
+          margin: '0 auto 18px auto',
+          padding: '26px 20px',
+          borderRadius: '24px',
+          border: '1px solid rgba(212,175,55,0.22)',
+          background:
+            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
+          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
+        }}
+      >
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+          }}
+        >
+          Mining Model
+        </div>
+
+        <div
+          style={{
+            color: '#d0d0d0',
+            fontSize: '16px',
+            lineHeight: '1.6',
+            textAlign: 'left',
+          }}
+        >
           REBORN uses a controlled emission structure with fixed 90-day cycles.
           Daily emissions decrease by 50% at every halving, starting from the
           official launch on June 25, 2026.
         </div>
       </div>
 
-      <div style={cardStyle}>
-        <div style={titleStyle}>Emission Plan</div>
-        <div style={{ ...textStyle, textAlign: 'left' }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '360px',
+          margin: '0 auto 18px auto',
+          padding: '26px 20px',
+          borderRadius: '24px',
+          border: '1px solid rgba(212,175,55,0.22)',
+          background:
+            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
+          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
+        }}
+      >
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+          }}
+        >
+          Emission Plan
+        </div>
+
+        <div
+          style={{
+            color: '#d0d0d0',
+            fontSize: '16px',
+            lineHeight: '1.6',
+            textAlign: 'left',
+          }}
+        >
           <div style={{ marginBottom: '8px' }}>• Phase 1 — 80,000 RBN / day</div>
           <div style={{ marginBottom: '8px' }}>• Phase 2 — 40,000 RBN / day</div>
           <div style={{ marginBottom: '8px' }}>• Phase 3 — 20,000 RBN / day</div>
@@ -136,9 +172,38 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={cardStyle}>
-        <div style={titleStyle}>Halving Schedule</div>
-        <div style={{ ...textStyle, textAlign: 'left' }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '360px',
+          margin: '0 auto 18px auto',
+          padding: '26px 20px',
+          borderRadius: '24px',
+          border: '1px solid rgba(212,175,55,0.22)',
+          background:
+            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
+          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
+        }}
+      >
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+          }}
+        >
+          Halving Schedule
+        </div>
+
+        <div
+          style={{
+            color: '#d0d0d0',
+            fontSize: '16px',
+            lineHeight: '1.6',
+            textAlign: 'left',
+          }}
+        >
           <div style={{ marginBottom: '8px' }}>• 23 September 2026</div>
           <div style={{ marginBottom: '8px' }}>• 22 December 2026</div>
           <div style={{ marginBottom: '8px' }}>• 22 March 2027</div>
@@ -150,13 +215,35 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={cardStyle}>
-        <div style={titleStyle}>Wallet Access</div>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '360px',
+          margin: '0 auto 18px auto',
+          padding: '26px 20px',
+          borderRadius: '24px',
+          border: '1px solid rgba(212,175,55,0.22)',
+          background:
+            'linear-gradient(180deg, rgba(14,14,14,0.96), rgba(8,8,8,0.96))',
+          boxShadow: '0 0 30px rgba(0,0,0,0.35)',
+        }}
+      >
+        <div
+          style={{
+            color: '#D4AF37',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+          }}
+        >
+          Wallet Access
+        </div>
+
         <div
           style={{
             color: '#bdbdbd',
             fontSize: '14px',
-            lineHeight: 1.5,
+            lineHeight: '1.5',
             marginBottom: '16px',
           }}
         >
@@ -176,7 +263,7 @@ export default function Home() {
           }}
         >
           {walletStatus}
-          {shortAddress ? ` • ${shortAddress}` : ''}
+          {shortAddress ? ' • ' + shortAddress : ''}
         </div>
 
         <button
@@ -220,3 +307,33 @@ export default function Home() {
               borderRadius: '12px',
               border: '1px solid rgba(212,175,55,0.28)',
               background: 'transparent',
+              color: '#D4AF37',
+              fontWeight: 'bold',
+              fontSize: '16px',
+              cursor: 'pointer',
+            }}
+          >
+            View Whitepaper
+          </button>
+        </a>
+
+        <button
+          style={{
+            width: '100%',
+            padding: '15px',
+            borderRadius: '12px',
+            border: 'none',
+            background: 'linear-gradient(180deg, #d4af37, #9a7436)',
+            color: '#111',
+            fontWeight: 'bold',
+            fontSize: '16px',
+            boxShadow: '0 0 20px rgba(212,175,55,0.25)',
+            cursor: 'pointer',
+          }}
+        >
+          Join Early Access
+        </button>
+      </div>
+    </div>
+  );
+}
