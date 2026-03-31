@@ -144,6 +144,22 @@ export default function Home() {
             fontSize: '16px',
           }}
         >
+<a href="/whitepaper" style={{ textDecoration: "none" }}>
+  <button
+    style={{
+      marginTop: "14px",
+      padding: "14px 30px",
+      borderRadius: "12px",
+      border: "1px solid rgba(212,175,55,0.3)",
+      background: "transparent",
+      color: "#D4AF37",
+      fontSize: "16px",
+      cursor: "pointer",
+    }}
+  >
+    View Whitepaper
+  </button>
+</a>
           {isConnecting
             ? 'Connecting...'
             : walletAddress
