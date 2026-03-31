@@ -1,12 +1,12 @@
 export const metadata = {
-  title: "REBORN",
-  description: "Rebuild the System",
+  title: 'REBORN',
+  description: 'Rebuild the System',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, backgroundColor: "#000" }}>
+      <body style={{ margin: 0, padding: 0, backgroundColor: '#000' }}>
         {children}
       </body>
     </html>
